@@ -19,7 +19,6 @@ namespace APIHub
         protected override async void OnStartup(StartupEventArgs e)
         {
             // Launch Window and Start Events
-            new MainWindow().Show();
             base.OnStartup(e);
 
             //Sets Current Version and Resets Future Version
