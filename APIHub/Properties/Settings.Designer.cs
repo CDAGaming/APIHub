@@ -37,7 +37,7 @@ namespace APIHub.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://google.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://cdagaming.github.io/Keys/LowRPM/LowRPM.html")]
         public string LowRPM {
             get {
                 return ((string)(this["LowRPM"]));
@@ -46,7 +46,7 @@ namespace APIHub.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://google.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://cdagaming.github.io/Keys/MediumRPM/MediumRPM.html")]
         public string MediumRPM {
             get {
                 return ((string)(this["MediumRPM"]));
@@ -55,7 +55,7 @@ namespace APIHub.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://google.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://cdagaming.github.io/Keys/HighRPM/HighRPM.html")]
         public string HighRPM {
             get {
                 return ((string)(this["HighRPM"]));
@@ -134,6 +134,54 @@ namespace APIHub.Properties {
             }
             set {
                 this["UpdateQueued"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Activated {
+            get {
+                return ((bool)(this["Activated"]));
+            }
+            set {
+                this["Activated"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Name {
+            get {
+                return ((string)(this["Name"]));
+            }
+            set {
+                this["Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MachineID {
+            get {
+                return ((string)(this["MachineID"]));
+            }
+            set {
+                this["MachineID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Key {
+            get {
+                return ((string)(this["Key"]));
+            }
+            set {
+                this["Key"] = value;
             }
         }
     }

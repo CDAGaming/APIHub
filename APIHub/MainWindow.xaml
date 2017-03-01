@@ -38,12 +38,15 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="337*"/>
-                    <ColumnDefinition Width="160*"/>
+                    <ColumnDefinition Width="297*"/>
+                    <ColumnDefinition Width="200*"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox x:Name="Filter" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="30" SelectionChanged="Filter_SelectionChanged"/>
-                <Label x:Name="Title_Filter" Content="Filter:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="95" Foreground="White"/>
-                <Label x:Name="Version" Content="Vx.x.x.x" HorizontalAlignment="Right" Margin="0,6,0,0" VerticalAlignment="Top" Width="75" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label x:Name="Title_Filter" Content="Filter:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="95" Foreground="White" Height="26"/>
+                <Label x:Name="Version" Content="Vx.x.x.x" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" Width="75" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26"/>
+                <Button x:Name="SettingsButton" Content="Settings" HorizontalAlignment="Left" Margin="115,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1"/>
+                <Button x:Name="SubmitKeyButton" Content="Submit Key" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1" Click="SubmitKeyButton_Click"/>
+                <Label x:Name="ActivatedTag" Content="Not Activated" HorizontalAlignment="Right" Margin="0,6,90,0" VerticalAlignment="Top" Width="100" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26"/>
             </Grid>
         </DockPanel>
         <DockPanel LastChildFill="False" Margin="10,0" VerticalAlignment="Bottom" Height="224">

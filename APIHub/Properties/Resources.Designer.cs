@@ -61,6 +61,15 @@ namespace APIHub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to APIHub_2017Q1_0228_enus.
+        /// </summary>
+        internal static string Auth {
+            get {
+                return ResourceManager.GetString("Auth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap background {
