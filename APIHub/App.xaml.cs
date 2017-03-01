@@ -42,13 +42,18 @@ namespace APIHub
 
                     if (CurrentVer < FutureVer)
                     {
-                        await updater.DownloadReleases(updatedownloads);
-                        MessageBoxResult msgresult = MessageBox.Show("An Update is Available: " + " from V" + CurrentVersion + " to V" + FutureVersion + ", Do you Wish to Update Now?", "New Update Available!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                        MessageBoxResult msgresult = MessageBox.Show("An Update is Available: " + "V" + CurrentVersion + " to V" + FutureVersion + ", Do you Wish to Update Now?", "New Update Available!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
                         if (msgresult == MessageBoxResult.Yes)
                         {
+                            await updater.DownloadReleases(updatedownloads);
                             await updater.ApplyReleases(updatecheck);
-                            Application.Current.Shutdown();
+                            MessageBoxResult updateresult = MessageBox.Show("Update Complete, Please Relaunch Program to Start New Version.", "Update Completed!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            if (updateresult == MessageBoxResult.OK)
+                            {
+                                Application.Current.Shutdown();
+                            }
                         }
                         else
                         {
