@@ -18,6 +18,9 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Drawing.Text;
 using MahApps.Metro;
+using System.IO;
+using System.Diagnostics;
+using System.Timers;
 
 namespace APIHub
 {
@@ -26,11 +29,16 @@ namespace APIHub
     /// </summary>
     public partial class MainWindow:MetroWindow
     {
-
+        Stopwatch sw = new Stopwatch();
+        Timer timer = new Timer();
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbfont, uint cbfont, IntPtr pdv, [In] ref uint pcFonts);
         System.Drawing.FontFamily ff;
         Font font;
+        int minutes = 00;
+        int seconds = 00;
+        int hours = 00;
+        int milliseconds = 00;
 
         public object PrivateFontCollection { get; private set; }
 
@@ -43,6 +51,16 @@ namespace APIHub
         {
             // Loads Custom Font
             LoadFont();
+
+            // Stopwatch Timing
+
+            //Settings.Default. = Convert.ToString(hours) + ":" + Convert.ToString(minutes) + ":" + Convert.ToString(seconds);
+            //Settings.Default.Save();
+            timer.Start();
+            timer.Interval = 1000;
+            timer.Elapsed += TimerTick;
+            
+
 
             // Loads Start Web Page and Version + Activation Status
             Browser.Source = new Uri(Settings.Default.HighRPM);
@@ -69,6 +87,24 @@ namespace APIHub
                 Browser.IsEnabled = true;
                 SettingsButton.Content = "Settings";
                 SettingsButton.Click += new RoutedEventHandler(SettingsButton_Activated);
+
+                if (Settings.Default.FontInstalled != true)
+                {
+                    MessageBoxResult msgresult = MessageBox.Show("This App Uses the Following Font: Montserrat-Regular. Would you like us to Install this Font?", "Font Installation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+                    if (msgresult == MessageBoxResult.Yes)
+                    {
+                        InstallFont();
+                    }
+                    else if (msgresult == MessageBoxResult.No)
+                    {
+                        // Do Nothing But Ask on Next Launch
+                    }
+                }
+                else
+                {
+                    // Do Nothing
+                }
             }
 
             // Loads Themes & Filters
@@ -80,6 +116,37 @@ namespace APIHub
             Filter.SelectedValue = Settings.Default.DefaultFilter;
 
             ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Default.DefaultTheme), ThemeManager.GetAppTheme(Settings.Default.Scheme));
+        }
+
+        private void TimerTick(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                seconds = seconds + 1;
+
+                if (seconds == 60)
+                {
+                    minutes = minutes + 1;
+                    seconds = 0;
+                    milliseconds = milliseconds + 60000;
+                }
+                if (minutes == 60)
+                {
+                    hours = hours + 1;
+                    minutes = 0;
+                }
+                string Time = hours + ":" + minutes + ":" + seconds;
+                AppTime.Content = "Time: " + Time;
+
+                if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime == 1800000)
+                {
+                    Settings.Default.LimitEnabled = false;
+                    Settings.Default.LimitTime = 0;
+                    Settings.Default.Save();
+
+                    Browser.IsEnabled = true;
+                }
+            });
         }
 
         private void SettingsButton_NotActivated(object sender, RoutedEventArgs e)
@@ -114,6 +181,18 @@ namespace APIHub
 
             ff = pfc.Families[0];
             font = new Font(ff, 15f, System.Drawing.FontStyle.Regular);
+        }
+
+        private void InstallFont()
+        {
+            if (Settings.Default.FontInstalled != true)
+            {
+                string CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string FontPath = System.IO.Path.Combine(CurrentDirectory + @"Resources/Montserrat-Regular.ttf");
+
+                Process.Start(FontPath);
+                MessageBox.Show("Font will be Ready for use on Next Restart");
+            }
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
@@ -411,12 +490,39 @@ namespace APIHub
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            sw.Stop();
 
         }
 
         private void SubmitKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will arrive in V1.2.0");
+            Browser.Source = new Uri(Settings.Default.SubmitKey);
+        }
+
+        private void Browser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl & Key.C | Key.RightCtrl & Key.C))
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    
+                    if (Settings.Default.KeysObtained > 3)
+                    {
+                        Settings.Default.LimitEnabled = true;
+                        Settings.Default.LimitTime = milliseconds;
+                        Settings.Default.Save();
+
+                        MessageBox.Show("Limit has been Reached, You can't obtain any keys for 30 Minutes");
+                        Browser.IsEnabled = false;
+                    }
+                    else if (Settings.Default.KeysObtained <= 3)
+                    {
+                        Settings.Default.KeysObtained = +1;
+                        Settings.Default.Save();
+                        KeysObtained.Content = "Keys: " + Settings.Default.KeysObtained;
+                    }
+                });
+            }
         }
     }
 }

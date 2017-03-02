@@ -184,5 +184,62 @@ namespace APIHub.Properties {
                 this["Key"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int KeysObtained {
+            get {
+                return ((int)(this["KeysObtained"]));
+            }
+            set {
+                this["KeysObtained"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LimitEnabled {
+            get {
+                return ((bool)(this["LimitEnabled"]));
+            }
+            set {
+                this["LimitEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://goo.gl/forms/SOsrrXhuG8vvXAq62")]
+        public string SubmitKey {
+            get {
+                return ((string)(this["SubmitKey"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LimitTime {
+            get {
+                return ((int)(this["LimitTime"]));
+            }
+            set {
+                this["LimitTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FontInstalled {
+            get {
+                return ((bool)(this["FontInstalled"]));
+            }
+            set {
+                this["FontInstalled"] = value;
+            }
+        }
     }
 }

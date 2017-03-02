@@ -1,10 +1,11 @@
-﻿<Controls:MetroWindow x:Class="APIHub.MainWindow"
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:APIHub"
+        xmlns:awe="http://schemas.awesomium.com/winfx" x:Class="APIHub.MainWindow"
         mc:Ignorable="d"
         Title="Pokemon GO - API Hub" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="Resources/icon.ico" UseLayoutRounding="False" MaxWidth="99999" MaxHeight="99999" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
     <Controls:MetroWindow.TitleTemplate>
@@ -28,10 +29,15 @@
         <DropShadowEffect ShadowDepth="10" BlurRadius="6"/>
     </Controls:MetroWindow.Effect>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="179*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/Resources/background.jpg"/>
         </Grid.Background>
-        <DockPanel Height="80" LastChildFill="False" Margin="10,10,0,0" VerticalAlignment="Top" Width="497" HorizontalAlignment="Center">
+        <DockPanel Height="80" LastChildFill="False" Margin="15,10,5,0" VerticalAlignment="Top" Width="497" HorizontalAlignment="Center">
             <Grid Height="80" VerticalAlignment="Top" Width="497">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -49,8 +55,20 @@
                 <Label x:Name="ActivatedTag" Content="Not Activated" HorizontalAlignment="Right" Margin="0,6,90,0" VerticalAlignment="Top" Width="100" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26"/>
             </Grid>
         </DockPanel>
-        <DockPanel LastChildFill="False" Margin="10,0" VerticalAlignment="Bottom" Height="224">
-            <WebBrowser x:Name="Browser" DockPanel.Dock="Bottom" />
+        <DockPanel LastChildFill="False" Margin="10,0,10,2" VerticalAlignment="Bottom" Grid.Row="1"/>
+
+        <awe:WebControl x:Name="Browser" Margin="10,10,10,2" KeyDown="Browser_KeyDown" Grid.Row="1"/>
+        <DockPanel HorizontalAlignment="Center" LastChildFill="False" Grid.Row="2" VerticalAlignment="Bottom" Width="517">
+            <Grid Height="40" VerticalAlignment="Bottom" Width="518" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150*"/>
+                    <ColumnDefinition Width="237*"/>
+                    <ColumnDefinition Width="150*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="AppTime" Content="Time: xx:xx:xx" HorizontalAlignment="Left" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Label x:Name="KeysObtained" Content="Keys: xxxx" HorizontalAlignment="Right" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2"/>
+
+            </Grid>
         </DockPanel>
 
     </Grid>

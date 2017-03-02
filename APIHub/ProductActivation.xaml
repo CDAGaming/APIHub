@@ -6,7 +6,18 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:APIHub"
         mc:Ignorable="d"
-        Title="ProductActivation" Height="300" Width="300" Background="#FF1C9CC1" MinWidth="300" MinHeight="300" MaxHeight="300" MaxWidth="300" Loaded="Window_Loaded">
+        Title="Product Activation" Height="300" Width="300" Background="#FF1C9CC1" MinWidth="300" MinHeight="300" MaxHeight="300" MaxWidth="300" Loaded="Window_Loaded" IsCloseButtonEnabled="False" ShowCloseButton="False">
+    <Controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock x:Name="TitleText"
+                       Text="API Hub - Activation"
+                       TextTrimming="CharacterEllipsis"
+                       VerticalAlignment="Center"
+                       Margin="7, 0, 0, 0"
+                       FontWeight="Normal" FontFamily="pack://application:,,,/Resources/#Montserrat"
+                                                />
+        </DataTemplate>
+    </Controls:MetroWindow.TitleTemplate>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="43*"/>
@@ -23,8 +34,8 @@
         <TextBox x:Name="LastName" HorizontalAlignment="Right" Height="30" Margin="0,6,10,6" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
         <Label Content="Key:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,0,0,3" Grid.Row="3"/>
         <TextBox x:Name="LicenceKey" HorizontalAlignment="Right" Height="30" Margin="0,5,10,8" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="MachineCode" HorizontalAlignment="Right" Height="30" Margin="0,10,10,14" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center" Width="227" VerticalContentAlignment="Center"/>
-        <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,10,0,14" Grid.Row="4"/>
+        <TextBox x:Name="MachineCode" HorizontalAlignment="Right" Height="30" Margin="0,8,10,12" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
+        <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="0,8,0,12" Grid.Row="4"/>
         <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="SubmitButton_Click"/>
         <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="ExitButton_Click"/>
 

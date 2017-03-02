@@ -73,17 +73,17 @@ namespace APIHub
                     }
                     else
                     {
-                        MessageBox.Show("Key is Incorrect, Please Try Again");
+                        MessageBox.Show("Product Key is Incorrect, Please Try Again","Key Incorrect",MessageBoxButton.OK,MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("KeyDirectory doesn't Exist, Please Contact CDAGaming.");
+                    MessageBox.Show("Key Directory doesn't Exist, Please Contact CDAGaming.","Error",MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("One Value is Empty or Invalid, Please Try Again");
+                MessageBox.Show("An Area is Empty or Invalid, Please Try Again","Error",MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
