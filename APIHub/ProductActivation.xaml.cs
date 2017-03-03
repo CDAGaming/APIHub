@@ -36,7 +36,7 @@ namespace APIHub
             //==========================================\\
 
             MachineCode.Text = Environment.MachineName;
-            MessageBox.Show("Please Send your Machine ID to CDAGaming on Discord, or email chrisdoesawesomness@gmail.com, to receive your product key");
+            MessageBox.Show("Please Send your Machine ID to CDAGaming on Discord, or in the PoGo Projects Channel to Receive your Product Key");
 
         }
 

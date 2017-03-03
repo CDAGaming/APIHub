@@ -29,7 +29,6 @@ namespace APIHub
     /// </summary>
     public partial class MainWindow:MetroWindow
     {
-        Stopwatch sw = new Stopwatch();
         Timer timer = new Timer();
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbfont, uint cbfont, IntPtr pdv, [In] ref uint pcFonts);
@@ -65,6 +64,7 @@ namespace APIHub
             // Loads Start Web Page and Version + Activation Status
             Browser.Source = new Uri(Settings.Default.HighRPM);
             Version.Content = "V" + Settings.Default.CurrentVersion;
+            KeysObtained.Content = Settings.Default.KeysObtained;
 
             if (Settings.Default.Activated == false)
             {
@@ -95,6 +95,8 @@ namespace APIHub
                     if (msgresult == MessageBoxResult.Yes)
                     {
                         InstallFont();
+                        Settings.Default.FontInstalled = true;
+                        Settings.Default.Save();
                     }
                     else if (msgresult == MessageBoxResult.No)
                     {
@@ -135,13 +137,15 @@ namespace APIHub
                     hours = hours + 1;
                     minutes = 0;
                 }
-                string Time = hours + ":" + minutes + ":" + seconds;
+
+                string Time = String.Format("{0:00}:{1:00}:{2:00}",hours,minutes,seconds);
                 AppTime.Content = "Time: " + Time;
 
                 if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime == 1800000)
                 {
                     Settings.Default.LimitEnabled = false;
                     Settings.Default.LimitTime = 0;
+                    Settings.Default.KeysObtained = 0;
                     Settings.Default.Save();
 
                     Browser.IsEnabled = true;
@@ -157,7 +161,7 @@ namespace APIHub
 
         private void SettingsButton_Activated(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be in V1.2.0");
+            MessageBox.Show("This Feature will be in V1.2.5");
         }
 
         private void LoadFont()
@@ -191,13 +195,12 @@ namespace APIHub
                 string FontPath = System.IO.Path.Combine(CurrentDirectory + @"Resources/Montserrat-Regular.ttf");
 
                 Process.Start(FontPath);
-                MessageBox.Show("Font will be Ready for use on Next Restart");
             }
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be Available in V1.2.0");
+            MessageBox.Show("This Feature will be in V1.2.5");
         }
 
         private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -482,7 +485,7 @@ namespace APIHub
             }
             else if (Settings.Default.Filter == "AllRPM*")
             {
-                MessageBox.Show("This Option will be Added in V1.2.0");
+                MessageBox.Show("This Option will be Added in V1.2.5");
                 Settings.Default.Filter = "HighRPM";
                 Settings.Default.Save();
             }
@@ -490,8 +493,7 @@ namespace APIHub
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            sw.Stop();
-
+            timer.Stop();
         }
 
         private void SubmitKeyButton_Click(object sender, RoutedEventArgs e)
@@ -503,25 +505,7 @@ namespace APIHub
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl & Key.C | Key.RightCtrl & Key.C))
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    
-                    if (Settings.Default.KeysObtained > 3)
-                    {
-                        Settings.Default.LimitEnabled = true;
-                        Settings.Default.LimitTime = milliseconds;
-                        Settings.Default.Save();
-
-                        MessageBox.Show("Limit has been Reached, You can't obtain any keys for 30 Minutes");
-                        Browser.IsEnabled = false;
-                    }
-                    else if (Settings.Default.KeysObtained <= 3)
-                    {
-                        Settings.Default.KeysObtained = +1;
-                        Settings.Default.Save();
-                        KeysObtained.Content = "Keys: " + Settings.Default.KeysObtained;
-                    }
-                });
+                
             }
         }
     }

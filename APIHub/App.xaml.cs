@@ -27,7 +27,7 @@ namespace APIHub
             Settings.Default.CurrentVersion = CurrentVersion;
             Settings.Default.Save();
 
-            /* Auto Update Functionality
+            // Auto Update Functionality
             using (var updater = await UpdateManager.GitHubUpdateManager("https://github.com/CDAGaming/APIHub", null, null, null, false, null))
             {
                 var updatecheck = await updater.CheckForUpdate();
