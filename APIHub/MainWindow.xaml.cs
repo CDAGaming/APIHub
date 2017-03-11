@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using APIHub.Properties;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Drawing.Text;
 using MahApps.Metro;
-using System.IO;
 using System.Diagnostics;
 using System.Timers;
 
@@ -38,6 +29,7 @@ namespace APIHub
         int seconds = 00;
         int hours = 00;
         int milliseconds = 00;
+        string Keys;
 
         public object PrivateFontCollection { get; private set; }
 
@@ -53,8 +45,6 @@ namespace APIHub
 
             // Stopwatch Timing
 
-            //Settings.Default. = Convert.ToString(hours) + ":" + Convert.ToString(minutes) + ":" + Convert.ToString(seconds);
-            //Settings.Default.Save();
             timer.Start();
             timer.Interval = 1000;
             timer.Elapsed += TimerTick;
@@ -64,7 +54,6 @@ namespace APIHub
             // Loads Start Web Page and Version + Activation Status
             Browser.Source = new Uri(Settings.Default.HighRPM);
             Version.Content = "V" + Settings.Default.CurrentVersion;
-            KeysObtained.Content = Settings.Default.KeysObtained;
 
             if (Settings.Default.Activated == false)
             {
@@ -109,6 +98,13 @@ namespace APIHub
                 }
             }
 
+            // Load Key Amount
+            Settings.Default.KeysObtained = 0;
+            Settings.Default.Save();
+            Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
+
+            KeysObtained.Content = "Keys: " + Keys;
+
             // Loads Themes & Filters
             Theme.ItemsSource = new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
             Filter.ItemsSource = new List<string> { "LowRPM", "MediumRPM", "HighRPM", "AllRPM*" };
@@ -122,7 +118,7 @@ namespace APIHub
 
         private void TimerTick(object sender, ElapsedEventArgs e)
         {
-            App.Current.Dispatcher.Invoke((Action)delegate
+            App.Current.Dispatcher.Invoke(delegate
             {
                 seconds = seconds + 1;
 
@@ -138,7 +134,7 @@ namespace APIHub
                     minutes = 0;
                 }
 
-                string Time = String.Format("{0:00}:{1:00}:{2:00}",hours,minutes,seconds);
+                string Time = String.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
                 AppTime.Content = "Time: " + Time;
 
                 if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime == 1800000)
@@ -149,6 +145,35 @@ namespace APIHub
                     Settings.Default.Save();
 
                     Browser.IsEnabled = true;
+                }
+
+                // If minutes App has been Run is Equal to the 5 Minutes past prior Refreshes
+                // 5*1=5, 5*2=10, 5*3=15,etc
+
+                if (minutes == Settings.Default.Reset_Minutes * Settings.Default.Reset_Times)
+                {
+                    if (Settings.Default.Filter == "LowRPM")
+                    {
+                        Browser.Source = new Uri(Settings.Default.LowRPM);
+                    }
+                    else if (Settings.Default.Filter == "MediumRPM")
+                    {
+                        Browser.Source = new Uri(Settings.Default.MediumRPM);
+                    }
+                    else if (Settings.Default.Filter == "HighRPM")
+                    {
+                        Browser.Source = new Uri(Settings.Default.HighRPM);
+                    }
+                    else if (Settings.Default.Filter == "AllRPM*")
+                    {
+                        MessageBox.Show("This Option will be Added in V1.2.5");
+                        Settings.Default.Filter = "HighRPM";
+                        Settings.Default.Save();
+                    }
+
+                    Settings.Default.Reset_Minutes = Settings.Default.Reset_Minutes * 2;
+                    Settings.Default.Reset_Times = Settings.Default.Reset_Times + 1;
+                    Settings.Default.Save();
                 }
             });
         }
@@ -161,7 +186,7 @@ namespace APIHub
 
         private void SettingsButton_Activated(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be in V1.2.5");
+            MessageBox.Show("This Feature will be Addded in V1.2.5");
         }
 
         private void LoadFont()
@@ -200,7 +225,9 @@ namespace APIHub
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be in V1.2.5");
+            // WARNING - Feature might be Buggy
+            AboutWindow aboutpg = new AboutWindow();
+            aboutpg.ShowDialog();
         }
 
         private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -503,10 +530,33 @@ namespace APIHub
 
         private void Browser_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.LeftCtrl & Key.C | Key.RightCtrl & Key.C))
+            App.Current.Dispatcher.Invoke(delegate
             {
-                
-            }
+                if (Keyboard.IsKeyDown(Key.C | Key.LeftCtrl))
+                {
+                    if (Keyboard.IsKeyDown(Key.LeftCtrl | Key.C))
+                    {
+                        if (Settings.Default.LimitEnabled == false)
+                        {
+                            Settings.Default.KeysObtained = Settings.Default.KeysObtained + 1;
+                            Settings.Default.Save();
+                            Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
+
+                            KeysObtained.Content = "Keys: " + Keys;
+                            e.Handled = true;
+                        }
+                        else if (Settings.Default.LimitEnabled == true)
+                        {
+                            MessageBox.Show("Please Wait 30 minutes for the limit to expire");
+                            e.Handled = true;
+                        }
+                    }
+                    else if (Keyboard.IsKeyDown(Key.RightCtrl | Key.C))
+                    {
+
+                    }
+                }
+            });
         }
     }
 }

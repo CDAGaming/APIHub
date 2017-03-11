@@ -241,5 +241,29 @@ namespace APIHub.Properties {
                 this["FontInstalled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Reset_Times {
+            get {
+                return ((int)(this["Reset_Times"]));
+            }
+            set {
+                this["Reset_Times"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int Reset_Minutes {
+            get {
+                return ((int)(this["Reset_Minutes"]));
+            }
+            set {
+                this["Reset_Minutes"] = value;
+            }
+        }
     }
 }
