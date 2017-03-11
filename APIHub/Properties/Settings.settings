@@ -5,6 +5,12 @@
     <Setting Name="CurrentVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="FutureVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UpdateQueued" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="LowRPM" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://cdagaming.github.io/Keys/LowRPM/LowRPM.html</Value>
     </Setting>
@@ -13,6 +19,12 @@
     </Setting>
     <Setting Name="HighRPM" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://cdagaming.github.io/Keys/HighRPM/HighRPM.html</Value>
+    </Setting>
+    <Setting Name="AllRPM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://cdagaming.github.io/Keys/AllRPM/AllRPM.html</Value>
+    </Setting>
+    <Setting Name="SubmitKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://goo.gl/forms/SOsrrXhuG8vvXAq62</Value>
     </Setting>
     <Setting Name="DefaultTheme" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Blue</Value>
@@ -23,17 +35,11 @@
     <Setting Name="Scheme" Type="System.String" Scope="Application">
       <Value Profile="(Default)">BaseLight</Value>
     </Setting>
-    <Setting Name="FutureVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="DefaultFilter" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">HighRPM</Value>
+      <Value Profile="(Default)">AllRPM</Value>
     </Setting>
     <Setting Name="Filter" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="UpdateQueued" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Activated" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -52,9 +58,6 @@
     </Setting>
     <Setting Name="LimitEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="SubmitKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://goo.gl/forms/SOsrrXhuG8vvXAq62</Value>
     </Setting>
     <Setting Name="LimitTime" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

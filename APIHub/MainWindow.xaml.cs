@@ -30,6 +30,8 @@ namespace APIHub
         int hours = 00;
         int milliseconds = 00;
         string Keys;
+        bool CKey;
+        bool CTRL_Key;
 
         public object PrivateFontCollection { get; private set; }
 
@@ -40,25 +42,22 @@ namespace APIHub
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Loads Custom Font
+            // Loads Custom Fonts
             LoadFont();
 
             // Stopwatch Timing
-
             timer.Start();
             timer.Interval = 1000;
             timer.Elapsed += TimerTick;
             
-
-
             // Loads Start Web Page and Version + Activation Status
-            Browser.Source = new Uri(Settings.Default.HighRPM);
+            Browser.Source = new Uri(Settings.Default.AllRPM);
             Version.Content = "V" + Settings.Default.CurrentVersion;
 
             if (Settings.Default.Activated == false)
             {
                 ActivatedTag.Content = "Not Activated";
-                ActivatedTag.Foreground = System.Windows.Media.Brushes.Red;
+                ActivatedTag.Foreground = System.Windows.Media.Brushes.Red; // Change to #D50000 (A700)
                 Filter.IsEnabled = false;
                 Browser.IsEnabled = false;
                 SettingsButton.Content = "Activate";
@@ -71,7 +70,7 @@ namespace APIHub
             else if (Settings.Default.Activated == true)
             {
                 ActivatedTag.Content = "Activated";
-                ActivatedTag.Foreground = System.Windows.Media.Brushes.Green;
+                ActivatedTag.Foreground = System.Windows.Media.Brushes.Green; // Change to #2962FF (A700)
                 Filter.IsEnabled = true;
                 Browser.IsEnabled = true;
                 SettingsButton.Content = "Settings";
@@ -89,7 +88,7 @@ namespace APIHub
                     }
                     else if (msgresult == MessageBoxResult.No)
                     {
-                        // Do Nothing But Ask on Next Launch
+                        // Do Nothing But Will Ask on Next Launch
                     }
                 }
                 else
@@ -98,7 +97,7 @@ namespace APIHub
                 }
             }
 
-            // Load Key Amount
+            // Loads Key Amount
             Settings.Default.KeysObtained = 0;
             Settings.Default.Save();
             Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
@@ -107,7 +106,7 @@ namespace APIHub
 
             // Loads Themes & Filters
             Theme.ItemsSource = new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
-            Filter.ItemsSource = new List<string> { "LowRPM", "MediumRPM", "HighRPM", "AllRPM*" };
+            Filter.ItemsSource = new List<string> { "LowRPM", "MediumRPM", "HighRPM", "AllRPM" };
 
             //=============THEME & FILTER STARTUP & DEFAULTS CONFIGURATION=============\\
             Theme.SelectedValue = Settings.Default.DefaultTheme;
@@ -146,6 +145,27 @@ namespace APIHub
 
                     Browser.IsEnabled = true;
                 }
+                else if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime != 1800000)
+                {
+                    Browser.IsEnabled = false;
+                }
+
+                // Detect If CTRL + C has been Pressed & Determine Limit from there
+                if (CTRL_Key & CKey == true)
+                {
+                    if (Settings.Default.LimitEnabled == false)
+                    {
+                        Settings.Default.KeysObtained = Settings.Default.KeysObtained + 1;
+                        Settings.Default.Save();
+                        Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
+
+                        KeysObtained.Content = "Keys: " + Keys;
+                    }
+                    else if (Settings.Default.LimitEnabled == true)
+                    {
+                        MessageBox.Show("Please Wait 30 minutes for the limit to expire");
+                    }
+                }
 
                 // If minutes App has been Run is Equal to the 5 Minutes past prior Refreshes
                 // 5*1=5, 5*2=10, 5*3=15,etc
@@ -166,9 +186,7 @@ namespace APIHub
                     }
                     else if (Settings.Default.Filter == "AllRPM*")
                     {
-                        MessageBox.Show("This Option will be Added in V1.2.5");
-                        Settings.Default.Filter = "HighRPM";
-                        Settings.Default.Save();
+                        Browser.Source = new Uri(Settings.Default.AllRPM);
                     }
 
                     Settings.Default.Reset_Minutes = Settings.Default.Reset_Minutes * 2;
@@ -512,9 +530,7 @@ namespace APIHub
             }
             else if (Settings.Default.Filter == "AllRPM*")
             {
-                MessageBox.Show("This Option will be Added in V1.2.5");
-                Settings.Default.Filter = "HighRPM";
-                Settings.Default.Save();
+                Browser.Source = new Uri(Settings.Default.AllRPM);
             }
         }
 
@@ -532,29 +548,32 @@ namespace APIHub
         {
             App.Current.Dispatcher.Invoke(delegate
             {
-                if (Keyboard.IsKeyDown(Key.C | Key.LeftCtrl))
+                // C Key Toggler
+                if (Keyboard.IsKeyDown(Key.C))
                 {
-                    if (Keyboard.IsKeyDown(Key.LeftCtrl | Key.C))
-                    {
-                        if (Settings.Default.LimitEnabled == false)
-                        {
-                            Settings.Default.KeysObtained = Settings.Default.KeysObtained + 1;
-                            Settings.Default.Save();
-                            Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
-
-                            KeysObtained.Content = "Keys: " + Keys;
-                            e.Handled = true;
-                        }
-                        else if (Settings.Default.LimitEnabled == true)
-                        {
-                            MessageBox.Show("Please Wait 30 minutes for the limit to expire");
-                            e.Handled = true;
-                        }
-                    }
-                    else if (Keyboard.IsKeyDown(Key.RightCtrl | Key.C))
-                    {
-
-                    }
+                    CKey = true;
+                }
+                else if (Keyboard.IsKeyUp(Key.C))
+                {
+                    CKey = false;
+                }
+                // LeftCTRL Key Toggles
+                if (Keyboard.IsKeyDown(Key.LeftCtrl))
+                {
+                    CTRL_Key = true;
+                }
+                else if (Keyboard.IsKeyUp(Key.LeftCtrl))
+                {
+                    CTRL_Key = false;
+                }
+                // RightCTRL Key Toggles
+                if (Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    CTRL_Key = true;
+                }
+                else if (Keyboard.IsKeyUp(Key.RightCtrl))
+                {
+                    CTRL_Key = false;
                 }
             });
         }

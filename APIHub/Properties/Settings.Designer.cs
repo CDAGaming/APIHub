@@ -35,6 +35,30 @@ namespace APIHub.Properties {
             }
         }
         
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FutureVersion {
+            get {
+                return ((string)(this["FutureVersion"]));
+            }
+            set {
+                this["FutureVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UpdateQueued {
+            get {
+                return ((bool)(this["UpdateQueued"]));
+            }
+            set {
+                this["UpdateQueued"] = value;
+            }
+        }
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://cdagaming.github.io/Keys/LowRPM/LowRPM.html")]
@@ -59,6 +83,27 @@ namespace APIHub.Properties {
         public string HighRPM {
             get {
                 return ((string)(this["HighRPM"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://cdagaming.github.io/Keys/AllRPM/AllRPM.html")]
+        public string AllRPM {
+            get {
+                return ((string)(this["AllRPM"]));
+            }
+            set {
+                this["AllRPM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://goo.gl/forms/SOsrrXhuG8vvXAq62")]
+        public string SubmitKey {
+            get {
+                return ((string)(this["SubmitKey"]));
             }
         }
         
@@ -92,21 +137,9 @@ namespace APIHub.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FutureVersion {
-            get {
-                return ((string)(this["FutureVersion"]));
-            }
-            set {
-                this["FutureVersion"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HighRPM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("AllRPM")]
         public string DefaultFilter {
             get {
                 return ((string)(this["DefaultFilter"]));
@@ -122,18 +155,6 @@ namespace APIHub.Properties {
             }
             set {
                 this["Filter"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UpdateQueued {
-            get {
-                return ((bool)(this["UpdateQueued"]));
-            }
-            set {
-                this["UpdateQueued"] = value;
             }
         }
         
@@ -206,15 +227,6 @@ namespace APIHub.Properties {
             }
             set {
                 this["LimitEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://goo.gl/forms/SOsrrXhuG8vvXAq62")]
-        public string SubmitKey {
-            get {
-                return ((string)(this["SubmitKey"]));
             }
         }
         

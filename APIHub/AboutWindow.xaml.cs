@@ -17,12 +17,8 @@ namespace APIHub
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //=======THEME CONFIG (FROM MAINFORM)=======\\
-            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Default.Theme), ThemeManager.GetAppTheme(Settings.Default.Scheme));
-            //==========================================\\
-
             // Loads Version ID
-            Version.Content = "V" + Settings.Default.CurrentVersion;
+            NamePlusVersion.Content = "Licensed to: " + Settings.Default.Name + " - " + "V" + Settings.Default.CurrentVersion;
         }
     }
 }

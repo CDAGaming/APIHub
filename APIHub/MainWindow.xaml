@@ -7,11 +7,11 @@
         xmlns:local="clr-namespace:APIHub"
         xmlns:awe="http://schemas.awesomium.com/winfx" x:Class="APIHub.MainWindow"
         mc:Ignorable="d"
-        Title="Pokemon GO - API Hub" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="Resources/icon.ico" UseLayoutRounding="False" MaxWidth="99999" MaxHeight="99999" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing">
+        Title="Pokemon GO - API Hub" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="Resources/icon.ico" UseLayoutRounding="False" MaxWidth="99999" MaxHeight="99999" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing" Background="#FF2196F3">
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock x:Name="TitleText"
-                       Text="Pokemon GO - API Hub"
+                       Text="API Hub - Home (V1.2.0)"
                        TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"
                        Margin="7, 0, 0, 0"
@@ -34,9 +34,6 @@
             <RowDefinition Height="179*"/>
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/background.jpg"/>
-        </Grid.Background>
         <DockPanel Height="80" LastChildFill="False" Margin="15,10,5,0" VerticalAlignment="Top" Width="497" HorizontalAlignment="Center">
             <Grid Height="80" VerticalAlignment="Top" Width="497">
                 <Grid.RowDefinitions>

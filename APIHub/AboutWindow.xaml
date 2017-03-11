@@ -6,7 +6,18 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:APIHub"
         mc:Ignorable="d"
-        Title="Pokemon GO API Hub - About" Height="200" Width="370" MinWidth="370" MinHeight="200" MaxWidth="370" MaxHeight="200" Background="#FF1C9CC1" Loaded="MetroWindow_Loaded">
+        Title="Pokemon GO API Hub - About" Height="200" Width="370" MinWidth="370" MinHeight="200" MaxWidth="370" MaxHeight="200" Background="#FF2196F3" Loaded="MetroWindow_Loaded" ShowMaxRestoreButton="False" IsMaxRestoreButtonEnabled="False" IgnoreTaskbarOnMaximize="True">
+    <Controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock x:Name="TitleText"
+                       Text="API Hub - About"
+                       TextTrimming="CharacterEllipsis"
+                       VerticalAlignment="Center"
+                       Margin="7, 0, 0, 0"
+                       FontWeight="Normal" FontFamily="pack://application:,,,/Resources/#Montserrat"
+                                                />
+        </DataTemplate>
+    </Controls:MetroWindow.TitleTemplate>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75*"/>
@@ -18,7 +29,7 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="LogoIMG" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Resources/icon.png"/>
         <Label x:Name="AppName" Content="PoGo Api Hub - Made by CDAGaming" Grid.Column="1" HorizontalAlignment="Right" Margin="10,10,0,0" VerticalAlignment="Top" Width="241" Foreground="White" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-        <Label x:Name="Version" Content="Vx.x.x" Grid.Column="1" HorizontalAlignment="Right" Margin="0,39,0,0" VerticalAlignment="Bottom" Width="241" Foreground="White" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="Decription" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Right" Height="74" Margin="0,15,0,5" Grid.Row="1" TextWrapping="Wrap" Text="A PoGo Home to Leaked and User Submitted API Keys." VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="251" HorizontalContentAlignment="Right"/>
+        <Label x:Name="NamePlusVersion" Content="Vx.x.x" Grid.Column="1" HorizontalAlignment="Right" Margin="0,39,0,0" VerticalAlignment="Bottom" Width="241" Foreground="White" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="Decription" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Right" Height="45" Margin="0,15.8,0.2,34.4" Grid.Row="1" TextWrapping="Wrap" Text="A PoGo Home to Leaked and User Submitted API Keys." VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Width="251" HorizontalContentAlignment="Right" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionOpacity="0" Focusable="False" IsHitTestVisible="False"/>
     </Grid>
 </Controls:MetroWindow>
