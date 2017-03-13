@@ -30,6 +30,7 @@ namespace APIHub
         int hours = 00;
         int milliseconds = 00;
         string Keys;
+        int KeyAmount = 00;
         bool CKey;
         bool CTRL_Key;
 
@@ -98,9 +99,7 @@ namespace APIHub
             }
 
             // Loads Key Amount
-            Settings.Default.KeysObtained = 0;
-            Settings.Default.Save();
-            Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
+            Keys = String.Format("{0:00}", KeyAmount);
 
             KeysObtained.Content = "Keys: " + Keys;
 
@@ -136,34 +135,20 @@ namespace APIHub
                 string Time = String.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
                 AppTime.Content = "Time: " + Time;
 
-                if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime == 1800000)
-                {
-                    Settings.Default.LimitEnabled = false;
-                    Settings.Default.LimitTime = 0;
-                    Settings.Default.KeysObtained = 0;
-                    Settings.Default.Save();
-
-                    Browser.IsEnabled = true;
-                }
-                else if (Settings.Default.LimitEnabled = true & milliseconds - Settings.Default.LimitTime != 1800000)
-                {
-                    Browser.IsEnabled = false;
-                }
-
                 // Detect If CTRL + C has been Pressed & Determine Limit from there
                 if (CTRL_Key & CKey == true)
                 {
                     if (Settings.Default.LimitEnabled == false)
                     {
-                        Settings.Default.KeysObtained = Settings.Default.KeysObtained + 1;
-                        Settings.Default.Save();
-                        Keys = String.Format("{0:00}", Settings.Default.KeysObtained);
+                        KeyAmount = KeyAmount + 1;
+                        Keys = String.Format("{0:00}", KeyAmount);
 
                         KeysObtained.Content = "Keys: " + Keys;
                     }
                     else if (Settings.Default.LimitEnabled == true)
                     {
-                        MessageBox.Show("Please Wait 30 minutes for the limit to expire");
+                        MessageBox.Show("Please Wait 5 minutes for the limit to expire");
+                        Clipboard.Clear();
                     }
                 }
 
