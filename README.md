@@ -15,6 +15,9 @@
   <a href="https://github.com/CDAGaming/APIHub/releases/latest">
   <img src="https://img.shields.io/github/release/CDAGaming/APIHub.svg?style=flat-square"/>
   </a>
+  <a>
+  <img src="https://ci.appveyor.com/api/projects/status/ac607uyqrd656gjw?svg=true"/>
+  </a>
 </p>
 
 <h2>Pages</h2>
