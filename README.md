@@ -21,7 +21,7 @@
 </p>
 <p align="center">
   <a href="https://discord.gg/9P7yYZV">
-  <img src="https://discordapp.com/api/guilds/220703917871333376/widget.png?style=banner3&time-" />
+  <img src="https://discordapp.com/api/guilds/286947442367135764/widget.png?style=banner3&time-" />
   </a>
 </p>
 
