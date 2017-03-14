@@ -4,16 +4,16 @@
 
 <p align="center">
   <a href="https://github.com/CDAGaming/APIHub/releases">
-  <img src="https://img.shields.io/github/downloads/CDAGaming/APIHub/total.svg"/>
+  <img src="https://img.shields.io/github/downloads/CDAGaming/APIHub/total.svg?style=flat"/>
   </a>
   <a href="http://www.gnu.org/licenses/gpl-3.0">
-  <img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg"/>
+  <img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat"/>
   </a>
   <a href="https://cdagaming.github.io">
-  <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg?maxAge=2592000"/>
+  <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg?maxAge=2592000?style=flat"/>
   </a>
   <a href="https://github.com/CDAGaming/APIHub/releases/latest">
-  <img src="https://img.shields.io/github/release/CDAGaming/APIHub.svg?style=flat-square"/>
+  <img src="https://img.shields.io/github/release/CDAGaming/APIHub.svg?style=flat"/>
   </a>
   <a>
   <img src="https://ci.appveyor.com/api/projects/status/ac607uyqrd656gjw?svg=true"/>
