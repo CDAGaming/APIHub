@@ -19,6 +19,11 @@
   <img src="https://ci.appveyor.com/api/projects/status/ac607uyqrd656gjw?svg=true"/>
   </a>
 </p>
+<p align="center">
+  <a href="https://discord.gg/9P7yYZV">
+  <img src="https://discordapp.com/api/guilds/220703917871333376/widget.png?style=banner3&time-" />
+  </a>
+</p>
 
 <h2>Pages</h2>
 <li><a href="https://raw.githubusercontent.com/CDAGaming/APIHub/master/LICENSE.md">View License</a></li>
