@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg?maxAge=2592000"/>
   </a>
   <a href="https://github.com/CDAGaming/APIHub/releases/latest">
-  <img src="https://img.shields.io/github/release/CDAGaming/Fable2_SaveCollection.svg?style=flat-square"/>
+  <img src="https://img.shields.io/github/release/CDAGaming/APIHub.svg?style=flat-square"/>
   </a>
 </p>
 
