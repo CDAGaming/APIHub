@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:APIHub"
         xmlns:awe="http://schemas.awesomium.com/winfx" x:Class="APIHub.MainWindow"
         mc:Ignorable="d"
-        Title="Pokemon GO - API Hub" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="Resources/icon.ico" UseLayoutRounding="False" MaxWidth="99999" MaxHeight="99999" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing" Background="#FF2196F3" >
+        Title="Pokemon GO - API Hub" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="Resources/icon.ico" UseLayoutRounding="False" MaxWidth="99999" MaxHeight="99999" Loaded="MetroWindow_Loaded" Closing="MetroWindow_Closing" Background="#FF2196F3" PreviewKeyDown="MetroWindow_PreviewKeyDown" >
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock x:Name="TitleText"
@@ -21,8 +21,8 @@
     </Controls:MetroWindow.TitleTemplate>
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button x:Name="About_Button" Content="About" Click="AboutButton_Click"/>
-            <ComboBox x:Name="Theme" Width="100" Text="Theme:" IsEditable="True" IsReadOnly="True" SelectionChanged="Theme_SelectionChanged" />
+            <Button x:Name="About_Button" Content="About" Click="AboutButton_Click" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+            <ComboBox x:Name="Theme" Width="100" Text="Theme:" IsEditable="True" IsReadOnly="True" SelectionChanged="Theme_SelectionChanged" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Controls:MetroWindow.Effect>
@@ -44,17 +44,16 @@
                     <ColumnDefinition Width="297*"/>
                     <ColumnDefinition Width="200*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="Filter" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="30" SelectionChanged="Filter_SelectionChanged"/>
-                <Label x:Name="Title_Filter" Content="Filter:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="95" Foreground="White" Height="26"/>
-                <Label x:Name="Version" Content="Vx.x.x.x" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" Width="75" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26"/>
-                <Button x:Name="SettingsButton" Content="Settings" HorizontalAlignment="Left" Margin="115,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1"/>
-                <Button x:Name="SubmitKeyButton" Content="Submit Key" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1" Click="SubmitKeyButton_Click"/>
-                <Label x:Name="ActivatedTag" Content="Not Activated" HorizontalAlignment="Right" Margin="0,6,90,0" VerticalAlignment="Top" Width="100" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26"/>
+                <ComboBox x:Name="Filter" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="30" SelectionChanged="Filter_SelectionChanged" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Label x:Name="Title_Filter" Content="Category:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="95" Foreground="White" Height="26" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Label x:Name="Version" Content="Vx.x.x.x" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" Width="75" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Button x:Name="SettingsButton" Content="Settings" HorizontalAlignment="Left" Margin="115,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Button x:Name="SubmitKeyButton" Content="Submit Key" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="1" Click="SubmitKeyButton_Click" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Label x:Name="ActivatedTag" Content="Not Activated" HorizontalAlignment="Right" Margin="0,6,90,0" VerticalAlignment="Top" Width="100" Foreground="White" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
             </Grid>
         </DockPanel>
         <DockPanel LastChildFill="False" Margin="10,0,10,2" VerticalAlignment="Bottom" Grid.Row="1"/>
-
-        <awe:WebControl x:Name="Browser" Margin="10,10,10,2" KeyDown="Browser_KeyDown" Grid.Row="1"/>
+        <awe:WebControl x:Name="Browser" Margin="10,10,10,2" Grid.Row="1" ShowContextMenu="Browser_ShowContextMenu"/>
         <DockPanel HorizontalAlignment="Center" LastChildFill="False" Grid.Row="2" VerticalAlignment="Bottom" Width="517">
             <Grid Height="40" VerticalAlignment="Bottom" Width="518" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -62,11 +61,9 @@
                     <ColumnDefinition Width="237*"/>
                     <ColumnDefinition Width="150*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="AppTime" Content="Time: xx:xx:xx" HorizontalAlignment="Left" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Label x:Name="KeysObtained" Content="Keys: xxxx" HorizontalAlignment="Right" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2"/>
-
+                <Label x:Name="AppTime" Content="Time: xx:xx:xx" HorizontalAlignment="Left" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+                <Label x:Name="KeysObtained" Content="Keys: xxxx" HorizontalAlignment="Right" Margin="0,7" VerticalAlignment="Center" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="2" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
             </Grid>
         </DockPanel>
-
     </Grid>
 </Controls:MetroWindow>

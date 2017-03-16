@@ -21,58 +21,59 @@ namespace APIHub
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //=======THEME CONFIG (FROM MAINFORM)=======\\
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Default.Theme), ThemeManager.GetAppTheme(Settings.Default.Scheme));
+            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Default.Theme), ThemeManager.GetAppTheme(Settings.Default.Scheme));
             //==========================================\\
 
-            MachineCode.Text = Environment.MachineName;
-            MessageBox.Show("Please Send your Machine ID to CDAGaming on Discord, or in the PoGo Projects Channel to Receive your Product Key");
+            IDCode.Text = Environment.MachineName + "_" + Environment.UserName + "_";
+            FirstName.Text = Environment.UserName;
+            MessageBox.Show("Please Send your ID to CDAGaming on Discord, or in the PoGo Projects Channel to Receive your Product Key");
 
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You'll be notified again when you restart the app to activate");
-            Close();
+            MessageBoxResult msgresult = MessageBox.Show(Properties.Resources.ExitButton_MSGBody, Properties.Resources.ExitButton_MSGCaption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            if (msgresult == MessageBoxResult.OK)
+            {
+                Application.Current.Shutdown();
+            }
+            
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FirstName.Text != "" & LastName.Text != "" & LicenceKey.Text != "")
+            String First_Name = FirstName.Text;
+            String Last_Name = LastName.Text;
+            String Licence_Key = LicenceKey.Text;
+            String ID_Code = IDCode.Text;
+            if (String.IsNullOrEmpty(First_Name) == false | String.IsNullOrEmpty(Last_Name) == false | String.IsNullOrEmpty(Licence_Key) == false)
             {
-                Settings.Default.MachineID = MachineCode.Text;
-                Settings.Default.Name = FirstName.Text + " " + LastName.Text;
+                Settings.Default.MachineID = ID_Code;
+                Settings.Default.Name = First_Name + " " + Last_Name;
                 Settings.Default.Save();
-                string LicenseKey = Settings.Default.MachineID + LicenceKey.Text;
+                string AuthCode = Properties.Resources.AuthCode;
+                string AuthKey = Properties.Resources.AuthKey;
                 string CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string KeyDirectory = System.IO.Path.Combine(CurrentDirectory + @"Resources/Auth.txt");
 
-                if (File.Exists(KeyDirectory))
+                if (Licence_Key.Contains("<_>" + Environment.MachineName + "<_>") | Licence_Key.Contains(AuthCode + AuthKey))
                 {
-                    string KeyData = File.ReadAllText(KeyDirectory);
+                    MessageBox.Show(Properties.Resources.ActivationSuccess_MSGBody + Settings.Default.Name, Properties.Resources.ActivationSuccess_MSGCaption, MessageBoxButton.OK, MessageBoxImage.Information);
+                    Settings.Default.Activated = true;
+                    Settings.Default.Key = Licence_Key;
+                    Settings.Default.Save();
 
-                    if (LicenseKey == Settings.Default.MachineID + KeyData)
-                    {
-                        MessageBox.Show("Key Successfully Activated, " + Settings.Default.Name);
-                        Settings.Default.Activated = true;
-                        Settings.Default.Key = LicenseKey;
-                        Settings.Default.Save();
-
-                        Process.Start(Application.ResourceAssembly.Location);
-                        Application.Current.Shutdown();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Product Key is Incorrect, Please Try Again","Key Incorrect",MessageBoxButton.OK,MessageBoxImage.Error);
-                    }
+                    Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
                 }
                 else
                 {
-                    MessageBox.Show("Key Directory doesn't Exist, Please Contact CDAGaming.","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.IncorrectKey_MSGBody, Properties.Resources.Error_Caption, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("An Area is Empty or Invalid, Please Try Again","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.EmptyArea_MSGBody, Properties.Resources.Error_Caption, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

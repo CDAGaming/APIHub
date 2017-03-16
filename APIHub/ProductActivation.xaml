@@ -14,8 +14,8 @@
                        TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"
                        Margin="7, 0, 0, 0"
-                       FontWeight="Normal" FontFamily="pack://application:,,,/Resources/#Montserrat"
-                                                />
+                       FontWeight="Normal"
+                       FontFamily="pack://application:,,,/Resources/#Montserrat" />
         </DataTemplate>
     </Controls:MetroWindow.TitleTemplate>
     <Grid>
@@ -27,17 +27,16 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="45*"/>
         </Grid.RowDefinitions>
-        <Label Content="Product Activation" HorizontalAlignment="Left" Margin="45,10,0,0" VerticalAlignment="Center" Width="210" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18"/>
-        <Label Content="First Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" VerticalContentAlignment="Center" Grid.Row="1" Height="40" Margin="0,1,0,2" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="FirstName" HorizontalAlignment="Right" Height="30" Margin="0,9,10,4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
-        <Label Content="Last Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,0,0,2" Grid.Row="2"/>
-        <TextBox x:Name="LastName" HorizontalAlignment="Right" Height="30" Margin="0,6,10,6" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
-        <Label Content="Key:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,0,0,3" Grid.Row="3"/>
-        <TextBox x:Name="LicenceKey" HorizontalAlignment="Right" Height="30" Margin="0,5,10,8" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="MachineCode" HorizontalAlignment="Right" Height="30" Margin="0,8,10,12" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center"/>
-        <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="0,8,0,12" Grid.Row="4"/>
-        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="SubmitButton_Click"/>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="ExitButton_Click"/>
-
+        <Label Content="Product Activation" HorizontalAlignment="Left" Margin="45,10,0,0" VerticalAlignment="Center" Width="210" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Label Content="First Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" VerticalContentAlignment="Center" Grid.Row="1" Height="40" Margin="0,1,0,2" HorizontalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <TextBox x:Name="FirstName" HorizontalAlignment="Right" Height="30" Margin="0,9,10,4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Label Content="Last Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,0,0,2" Grid.Row="2" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <TextBox x:Name="LastName" HorizontalAlignment="Right" Height="30" Margin="0,6,10,6" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Label Content="Key:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,0,0,3" Grid.Row="3" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <TextBox x:Name="LicenceKey" HorizontalAlignment="Right" Height="30" Margin="0,5,10,8" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <TextBox x:Name="IDCode" HorizontalAlignment="Right" Height="30" Margin="0,8,10,12" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" VerticalAlignment="Center" Width="185" VerticalContentAlignment="Center" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Label Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="0,8,0,12" Grid.Row="4" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="SubmitButton_Click" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
+        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="ExitButton_Click" FontFamily="pack://application:,,,/Resources/#Montserrat" FontWeight="Normal" />
     </Grid>
 </Controls:MetroWindow>

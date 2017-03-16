@@ -6396,7 +6396,56 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="Auth" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Auth.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="AuthCode" xml:space="preserve">
+    <value>_-_Auth_-_</value>
+    <comment>Auth Code</comment>
+  </data>
+  <data name="EmptyArea_MSGBody" xml:space="preserve">
+    <value>An Area is Empty or Invalid, Please Try Again.</value>
+    <comment>Message for Empty Required Area</comment>
+  </data>
+  <data name="Error_Caption" xml:space="preserve">
+    <value>Error!</value>
+    <comment>Caption for Errors</comment>
+  </data>
+  <data name="ExitButton_MSGBody" xml:space="preserve">
+    <value>You'll be notified again when you start the app again to activate...</value>
+    <comment>ExitButton Message Body</comment>
+  </data>
+  <data name="ExitButton_MSGCaption" xml:space="preserve">
+    <value>Activation Canceled!</value>
+    <comment>ExitButton Message Caption</comment>
+  </data>
+  <data name="IncorrectKeyFile_MSGBody" xml:space="preserve">
+    <value>Key Directory doesn't Exist, Please Contact CDAGaming.</value>
+    <comment>Message for Incorrect Key File</comment>
+  </data>
+  <data name="IncorrectKey_MSGBody" xml:space="preserve">
+    <value>Product Key is Incorrect, Please Try Again.</value>
+    <comment>Message for Incorrect Keys</comment>
+  </data>
+  <data name="MSG_FontInstall_Body" xml:space="preserve">
+    <value>This App Uses the Following Font: Montserrat-Regular. Would you like to Install this Font?</value>
+    <comment>Message On Font Installation</comment>
+  </data>
+  <data name="MSG_FontInstall_Caption" xml:space="preserve">
+    <value>Font Installation</value>
+    <comment>Caption - Font Installation</comment>
+  </data>
+  <data name="ActivationSuccess_MSGBody" xml:space="preserve">
+    <value>Key has been Successfully Activated, </value>
+    <comment>Activation Success Message Body</comment>
+  </data>
+  <data name="ActivationSuccess_MSGCaption" xml:space="preserve">
+    <value>Activation Successfull!</value>
+    <comment>Activation Success Message Caption</comment>
+  </data>
+  <data name="ReplacerKey" xml:space="preserve">
+    <value>&lt;_&gt;</value>
+    <comment>Replacer Key - Activation</comment>
+  </data>
+  <data name="AuthKey" xml:space="preserve">
+    <value>APIHub_2017Q1_0314_en</value>
+    <comment>Authentication Key</comment>
   </data>
 </root>

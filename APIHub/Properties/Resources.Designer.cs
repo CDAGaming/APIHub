@@ -61,11 +61,38 @@ namespace APIHub.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to APIHub_2017Q1_0228_enus.
+        ///   Looks up a localized string similar to Key has been Successfully Activated, .
         /// </summary>
-        internal static string Auth {
+        internal static string ActivationSuccess_MSGBody {
             get {
-                return ResourceManager.GetString("Auth", resourceCulture);
+                return ResourceManager.GetString("ActivationSuccess_MSGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activation Successfull!.
+        /// </summary>
+        internal static string ActivationSuccess_MSGCaption {
+            get {
+                return ResourceManager.GetString("ActivationSuccess_MSGCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _-_Auth_-_.
+        /// </summary>
+        internal static string AuthCode {
+            get {
+                return ResourceManager.GetString("AuthCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APIHub_2017Q1_0314_en.
+        /// </summary>
+        internal static string AuthKey {
+            get {
+                return ResourceManager.GetString("AuthKey", resourceCulture);
             }
         }
         
@@ -80,6 +107,42 @@ namespace APIHub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An Area is Empty or Invalid, Please Try Again..
+        /// </summary>
+        internal static string EmptyArea_MSGBody {
+            get {
+                return ResourceManager.GetString("EmptyArea_MSGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error!.
+        /// </summary>
+        internal static string Error_Caption {
+            get {
+                return ResourceManager.GetString("Error_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ll be notified again when you start the app again to activate....
+        /// </summary>
+        internal static string ExitButton_MSGBody {
+            get {
+                return ResourceManager.GetString("ExitButton_MSGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activation Canceled!.
+        /// </summary>
+        internal static string ExitButton_MSGCaption {
+            get {
+                return ResourceManager.GetString("ExitButton_MSGCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon icon1 {
@@ -90,12 +153,57 @@ namespace APIHub.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Key is Incorrect, Please Try Again..
+        /// </summary>
+        internal static string IncorrectKey_MSGBody {
+            get {
+                return ResourceManager.GetString("IncorrectKey_MSGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Directory doesn&apos;t Exist, Please Contact CDAGaming..
+        /// </summary>
+        internal static string IncorrectKeyFile_MSGBody {
+            get {
+                return ResourceManager.GetString("IncorrectKeyFile_MSGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Montserrat_Regular {
             get {
                 object obj = ResourceManager.GetObject("Montserrat_Regular", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This App Uses the Following Font: Montserrat-Regular. Would you like to Install this Font?.
+        /// </summary>
+        internal static string MSG_FontInstall_Body {
+            get {
+                return ResourceManager.GetString("MSG_FontInstall_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Installation.
+        /// </summary>
+        internal static string MSG_FontInstall_Caption {
+            get {
+                return ResourceManager.GetString("MSG_FontInstall_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;_&gt;.
+        /// </summary>
+        internal static string ReplacerKey {
+            get {
+                return ResourceManager.GetString("ReplacerKey", resourceCulture);
             }
         }
     }

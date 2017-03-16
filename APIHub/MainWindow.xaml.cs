@@ -7,32 +7,32 @@ using System.Windows.Media;
 using MahApps.Metro.Controls;
 using APIHub.Properties;
 using System.Runtime.InteropServices;
-using System.Drawing;
-using System.Drawing.Text;
 using MahApps.Metro;
 using System.Diagnostics;
 using System.Timers;
+using Microsoft.Win32.SafeHandles;
 
 namespace APIHub
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow:MetroWindow
+    public partial class MainWindow:MetroWindow, IDisposable
     {
+
         Timer timer = new Timer();
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbfont, uint cbfont, IntPtr pdv, [In] ref uint pcFonts);
-        System.Drawing.FontFamily ff;
-        Font font;
+        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         int minutes = 00;
         int seconds = 00;
         int hours = 00;
         int milliseconds = 00;
         string Keys;
         int KeyAmount = 00;
-        bool CKey;
-        bool CTRL_Key;
+        bool disposed = false;
+        bool CopyPaste = false;
+        Color Red = (Color)ColorConverter.ConvertFromString("#D50000");
+        Color Green = (Color)ColorConverter.ConvertFromString("#00E676");
+        Color Yellow = (Color)ColorConverter.ConvertFromString("#FF6F00");
 
         public object PrivateFontCollection { get; private set; }
 
@@ -43,12 +43,9 @@ namespace APIHub
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Loads Custom Fonts
-            LoadFont();
-
             // Stopwatch Timing
             timer.Start();
-            timer.Interval = 1000;
+            timer.Interval = 250;
             timer.Elapsed += TimerTick;
             
             // Loads Start Web Page and Version + Activation Status
@@ -58,9 +55,10 @@ namespace APIHub
             if (Settings.Default.Activated == false)
             {
                 ActivatedTag.Content = "Not Activated";
-                ActivatedTag.Foreground = System.Windows.Media.Brushes.Red; // Change to #D50000 (A700)
+                ActivatedTag.Foreground = new SolidColorBrush(Red);
                 Filter.IsEnabled = false;
                 Browser.IsEnabled = false;
+                Browser.Visibility = 0;
                 SettingsButton.Content = "Activate";
                 SettingsButton.Click += new RoutedEventHandler(SettingsButton_NotActivated);
 
@@ -71,15 +69,15 @@ namespace APIHub
             else if (Settings.Default.Activated == true)
             {
                 ActivatedTag.Content = "Activated";
-                ActivatedTag.Foreground = System.Windows.Media.Brushes.Green; // Change to #2962FF (A700)
+                ActivatedTag.Foreground = new SolidColorBrush(Green);
                 Filter.IsEnabled = true;
                 Browser.IsEnabled = true;
                 SettingsButton.Content = "Settings";
                 SettingsButton.Click += new RoutedEventHandler(SettingsButton_Activated);
 
-                if (Settings.Default.FontInstalled != true)
+                /*if (Settings.Default.FontInstalled != true)
                 {
-                    MessageBoxResult msgresult = MessageBox.Show("This App Uses the Following Font: Montserrat-Regular. Would you like us to Install this Font?", "Font Installation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                    MessageBoxResult msgresult = MessageBox.Show(Properties.Resources.MSG_FontInstall_Body, Properties.Resources.MSG_FontInstall_Caption, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
                     if (msgresult == MessageBoxResult.Yes)
                     {
@@ -95,13 +93,13 @@ namespace APIHub
                 else
                 {
                     // Do Nothing
-                }
+                }*/
             }
 
             // Loads Key Amount
             Keys = String.Format("{0:00}", KeyAmount);
-
             KeysObtained.Content = "Keys: " + Keys;
+            KeysObtained.Foreground = new SolidColorBrush(Green);
 
             // Loads Themes & Filters
             Theme.ItemsSource = new List<string> { "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna" };
@@ -118,13 +116,18 @@ namespace APIHub
         {
             App.Current.Dispatcher.Invoke(delegate
             {
-                seconds = seconds + 1;
+                milliseconds = milliseconds + 250;
+
+                if (milliseconds == 1000)
+                {
+                    seconds = seconds + 1;
+                    milliseconds = 0;
+                }
 
                 if (seconds == 60)
                 {
                     minutes = minutes + 1;
                     seconds = 0;
-                    milliseconds = milliseconds + 60000;
                 }
                 if (minutes == 60)
                 {
@@ -135,19 +138,32 @@ namespace APIHub
                 string Time = String.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
                 AppTime.Content = "Time: " + Time;
 
-                // Detect If CTRL + C has been Pressed & Determine Limit from there
-                if (CTRL_Key & CKey == true)
+                // Detect If CTRL + C has been Pressed & Determine Limit Status
+                if (CopyPaste == true)
                 {
                     if (Settings.Default.LimitEnabled == false)
                     {
                         KeyAmount = KeyAmount + 1;
                         Keys = String.Format("{0:00}", KeyAmount);
-
                         KeysObtained.Content = "Keys: " + Keys;
+                        KeysObtained.Foreground = new SolidColorBrush(Green);
+
+                        if (KeyAmount >= 3 && KeyAmount != 5)
+                        {
+                            KeysObtained.Foreground = new SolidColorBrush(Yellow);
+                        }
+                        else if (KeyAmount == 5)
+                        {
+                            Settings.Default.LimitEnabled = true;
+                            KeysObtained.Foreground = new SolidColorBrush(Red);
+                            KeysObtained.Content = "LIMIT ACTIVE!";
+                        }
+                        CopyPaste = false;
                     }
-                    else if (Settings.Default.LimitEnabled == true)
+                    else if (Settings.Default.LimitEnabled == true & CopyPaste == true)
                     {
-                        MessageBox.Show("Please Wait 5 minutes for the limit to expire");
+                        CopyPaste = false;
+                        MessageBox.Show("Please Wait " + Settings.Default.Reset_Minutes + " Minutes for the limit to expire");
                         Clipboard.Clear();
                     }
                 }
@@ -169,14 +185,23 @@ namespace APIHub
                     {
                         Browser.Source = new Uri(Settings.Default.HighRPM);
                     }
-                    else if (Settings.Default.Filter == "AllRPM*")
+                    else if (Settings.Default.Filter == "AllRPM")
                     {
                         Browser.Source = new Uri(Settings.Default.AllRPM);
                     }
 
-                    Settings.Default.Reset_Minutes = Settings.Default.Reset_Minutes * 2;
-                    Settings.Default.Reset_Times = Settings.Default.Reset_Times + 1;
-                    Settings.Default.Save();
+                    if (Settings.Default.LimitEnabled == true)
+                    {
+                        Settings.Default.Reset_Minutes = Settings.Default.Reset_Minutes * 2;
+                        Settings.Default.Reset_Times = Settings.Default.Reset_Times + 1;
+                        Settings.Default.LimitEnabled = false;
+                        Settings.Default.Save();
+
+                        KeyAmount = 0;
+                        Keys = String.Format("{0:00}", KeyAmount);
+                        KeysObtained.Content = "Keys: " + Keys;
+                        KeysObtained.Foreground = new SolidColorBrush(Green);
+                    }
                 }
             });
         }
@@ -189,33 +214,10 @@ namespace APIHub
 
         private void SettingsButton_Activated(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be Addded in V1.2.5");
+            MessageBox.Show("This Feature will be Addded in V1.2.0 (Preview Build #3)");
         }
 
-        private void LoadFont()
-        {
-            byte[] fontArray = Properties.Resources.Montserrat_Regular;
-            int dataLength = Properties.Resources.Montserrat_Regular.Length;
-
-            IntPtr ptrData = Marshal.AllocCoTaskMem(dataLength);
-
-            Marshal.Copy(fontArray, 0, ptrData, dataLength);
-
-            uint cFonts = 0;
-
-            AddFontMemResourceEx(ptrData, (uint)fontArray.Length, IntPtr.Zero, ref cFonts);
-
-            PrivateFontCollection pfc = new PrivateFontCollection();
-
-            pfc.AddMemoryFont(ptrData, dataLength);
-
-            Marshal.FreeCoTaskMem(ptrData);
-
-            ff = pfc.Families[0];
-            font = new Font(ff, 15f, System.Drawing.FontStyle.Regular);
-        }
-
-        private void InstallFont()
+        /*private void InstallFont()
         {
             if (Settings.Default.FontInstalled != true)
             {
@@ -224,11 +226,10 @@ namespace APIHub
 
                 Process.Start(FontPath);
             }
-        }
+        }*/
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            // WARNING - Feature might be Buggy
             AboutWindow aboutpg = new AboutWindow();
             aboutpg.ShowDialog();
         }
@@ -249,7 +250,7 @@ namespace APIHub
                 Settings.Default.Theme = "Red";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Red;
+                Theme.Foreground = Brushes.Red;
             }
 
             // Change Theme to Green
@@ -260,7 +261,7 @@ namespace APIHub
                 Settings.Default.Theme = "Green";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Green;
+                Theme.Foreground = Brushes.Green;
             }
 
             // Change Theme to Blue
@@ -271,7 +272,7 @@ namespace APIHub
                 Settings.Default.Theme = "Blue";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Blue;
+                Theme.Foreground = Brushes.Blue;
             }
 
             // Change Theme to Purple
@@ -282,7 +283,7 @@ namespace APIHub
                 Settings.Default.Theme = "Purple";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Purple;
+                Theme.Foreground = Brushes.Purple;
             }
 
             // Change Theme to Orange
@@ -293,7 +294,7 @@ namespace APIHub
                 Settings.Default.Theme = "Orange";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Orange;
+                Theme.Foreground = Brushes.Orange;
             }
 
             // Change Theme to Lime
@@ -304,7 +305,7 @@ namespace APIHub
                 Settings.Default.Theme = "Lime";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Lime;
+                Theme.Foreground = Brushes.Lime;
             }
 
             // Change Theme to Emerald
@@ -326,7 +327,7 @@ namespace APIHub
                 Settings.Default.Theme = "Teal";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Teal;
+                Theme.Foreground = Brushes.Teal;
             }
 
             // Change Theme to Cyan
@@ -337,7 +338,7 @@ namespace APIHub
                 Settings.Default.Theme = "Cyan";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Cyan;
+                Theme.Foreground = Brushes.Cyan;
             }
 
             // Change Theme to Cobalt
@@ -359,7 +360,7 @@ namespace APIHub
                 Settings.Default.Theme = "Indigo";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Indigo;
+                Theme.Foreground = Brushes.Indigo;
             }
 
             // Change Theme to Violet
@@ -370,7 +371,7 @@ namespace APIHub
                 Settings.Default.Theme = "Violet";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Violet;
+                Theme.Foreground = Brushes.Violet;
             }
 
             // Change Theme to Pink
@@ -381,7 +382,7 @@ namespace APIHub
                 Settings.Default.Theme = "Pink";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Pink;
+                Theme.Foreground = Brushes.Pink;
             }
 
             // Change Theme to Magenta
@@ -392,7 +393,7 @@ namespace APIHub
                 Settings.Default.Theme = "Magenta";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Magenta;
+                Theme.Foreground = Brushes.Magenta;
             }
 
             // Change Theme to Crimson
@@ -403,7 +404,7 @@ namespace APIHub
                 Settings.Default.Theme = "Crimson";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Crimson;
+                Theme.Foreground = Brushes.Crimson;
             }
 
             // Change Theme to Amber
@@ -425,7 +426,7 @@ namespace APIHub
                 Settings.Default.Theme = "Yellow";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Yellow;
+                Theme.Foreground = Brushes.Yellow;
             }
 
             // Change Theme to Brown
@@ -436,7 +437,7 @@ namespace APIHub
                 Settings.Default.Theme = "Brown";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Brown;
+                Theme.Foreground = Brushes.Brown;
             }
 
             // Change Theme to Olive
@@ -447,7 +448,7 @@ namespace APIHub
                 Settings.Default.Theme = "Olive";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Olive;
+                Theme.Foreground = Brushes.Olive;
             }
 
             // Change Theme to Steel
@@ -491,7 +492,7 @@ namespace APIHub
                 Settings.Default.Theme = "Sienna";
                 Settings.Default.Save();
 
-                Theme.Foreground = System.Windows.Media.Brushes.Sienna;
+                Theme.Foreground = Brushes.Sienna;
             }
         }
         private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -513,7 +514,7 @@ namespace APIHub
             {
                 Browser.Source = new Uri(Settings.Default.HighRPM);
             }
-            else if (Settings.Default.Filter == "AllRPM*")
+            else if (Settings.Default.Filter == "AllRPM")
             {
                 Browser.Source = new Uri(Settings.Default.AllRPM);
             }
@@ -521,7 +522,16 @@ namespace APIHub
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (disposed == false)
+            {
+                Dispose();
+            }
+            else
+            {
+                disposed = false;
+            }
             timer.Stop();
+            Application.Current.Shutdown();
         }
 
         private void SubmitKeyButton_Click(object sender, RoutedEventArgs e)
@@ -529,38 +539,36 @@ namespace APIHub
             Browser.Source = new Uri(Settings.Default.SubmitKey);
         }
 
-        private void Browser_KeyDown(object sender, KeyEventArgs e)
+        public void Dispose()
         {
-            App.Current.Dispatcher.Invoke(delegate
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool Disposing)
+        {
+            if (disposed)
             {
-                // C Key Toggler
-                if (Keyboard.IsKeyDown(Key.C))
-                {
-                    CKey = true;
-                }
-                else if (Keyboard.IsKeyUp(Key.C))
-                {
-                    CKey = false;
-                }
-                // LeftCTRL Key Toggles
-                if (Keyboard.IsKeyDown(Key.LeftCtrl))
-                {
-                    CTRL_Key = true;
-                }
-                else if (Keyboard.IsKeyUp(Key.LeftCtrl))
-                {
-                    CTRL_Key = false;
-                }
-                // RightCTRL Key Toggles
-                if (Keyboard.IsKeyDown(Key.RightCtrl))
-                {
-                    CTRL_Key = true;
-                }
-                else if (Keyboard.IsKeyUp(Key.RightCtrl))
-                {
-                    CTRL_Key = false;
-                }
-            });
+                return;
+            }
+            if (Disposing)
+            {
+                handle.Dispose();
+                ((IDisposable)timer).Dispose();
+            }
+            disposed = true;
+        }
+
+        private void MetroWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                CopyPaste = true;
+            }
+        }
+
+        private void Browser_ShowContextMenu(object sender, Awesomium.Core.ContextMenuEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

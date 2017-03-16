@@ -1,5 +1,4 @@
 ﻿using APIHub.Properties;
-using MahApps.Metro;
 using MahApps.Metro.Controls;
 using System.Windows;
 

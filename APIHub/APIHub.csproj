@@ -8,13 +8,14 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>APIHub</RootNamespace>
     <AssemblyName>APIHub</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,8 +75,9 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
@@ -190,6 +192,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -197,9 +200,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\Montserrat-Regular.ttf">
+    <None Include="Resources\DLL\awesomium_process" />
+    <None Include="Resources\DLL\inspector.pak" />
+    <None Include="Resources\DLL\pdf_js.pak" />
+    <Resource Include="Resources\Montserrat-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -217,9 +223,39 @@
     <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Auth.txt">
+    <Content Include="Resources\DLL\avcodec-53.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Resources\DLL\avformat-53.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\DLL\avutil-51.dll" />
+    <Content Include="Resources\DLL\Awesomium.Core.dll" />
+    <Resource Include="Resources\DLL\ICSharpCode.SharpZipLib.xml" />
+    <Resource Include="Resources\DLL\MahApps.Metro.xml" />
+    <Resource Include="Resources\DLL\Newtonsoft.Json.xml" />
+    <Resource Include="Resources\DLL\Awesomium.Core.xml" />
+    <Content Include="Resources\DLL\awesomium.dll" />
+    <Content Include="Resources\DLL\Awesomium.Windows.Controls.dll" />
+    <Resource Include="Resources\DLL\Awesomium.Windows.Controls.xml" />
+    <Content Include="Resources\DLL\DeltaCompressionDotNet.dll" />
+    <Content Include="Resources\DLL\DeltaCompressionDotNet.MsDelta.dll" />
+    <Content Include="Resources\DLL\DeltaCompressionDotNet.PatchApi.dll" />
+    <Content Include="Resources\DLL\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Resources\DLL\icudt.dll" />
+    <Content Include="Resources\DLL\libEGL.dll" />
+    <Content Include="Resources\DLL\libGLESv2.dll" />
+    <Content Include="Resources\DLL\MahApps.Metro.dll" />
+    <Content Include="Resources\DLL\Mono.Cecil.dll" />
+    <Content Include="Resources\DLL\Mono.Cecil.Mdb.dll" />
+    <Content Include="Resources\DLL\Mono.Cecil.Pdb.dll" />
+    <Content Include="Resources\DLL\Mono.Cecil.Rocks.dll" />
+    <Content Include="Resources\DLL\Newtonsoft.Json.dll" />
+    <Content Include="Resources\DLL\NuGet.Squirrel.dll" />
+    <Content Include="Resources\DLL\Splat.dll" />
+    <Content Include="Resources\DLL\Squirrel.dll" />
+    <Content Include="Resources\DLL\System.Windows.Interactivity.dll" />
+    <Content Include="Resources\DLL\xinput9_1_0.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
