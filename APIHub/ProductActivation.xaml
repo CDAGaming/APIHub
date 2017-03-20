@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:APIHub"
         mc:Ignorable="d"
-        Title="Product Activation" Height="300" Width="300" Background="#FF2196F3" MinWidth="300" MinHeight="300" MaxHeight="300" MaxWidth="300" Loaded="Window_Loaded" IsCloseButtonEnabled="False" ShowCloseButton="False" IsMaxRestoreButtonEnabled="False" ShowMaxRestoreButton="False" IgnoreTaskbarOnMaximize="True">
+        Title="Product Activation" Height="300" Width="300" Background="#FF2196F3" MinWidth="300" MinHeight="300" MaxHeight="300" MaxWidth="300" Loaded="Window_Loaded" IsCloseButtonEnabled="False" ShowCloseButton="False" IsMaxRestoreButtonEnabled="False" ShowMaxRestoreButton="False" IgnoreTaskbarOnMaximize="True" ResizeMode="NoResize">
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock x:Name="TitleText"

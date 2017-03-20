@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:APIHub"
         mc:Ignorable="d"
-        Title="Pokemon GO API Hub - About" Height="200" Width="370" MinWidth="370" MinHeight="200" MaxWidth="370" MaxHeight="200" Background="#FF2196F3" Loaded="MetroWindow_Loaded" ShowMaxRestoreButton="False" IsMaxRestoreButtonEnabled="False" IgnoreTaskbarOnMaximize="True">
+        Title="APIHub - About" Height="200" Width="370" MinWidth="370" MinHeight="200" MaxWidth="370" MaxHeight="200" Background="#FF2196F3" Loaded="MetroWindow_Loaded" ShowMaxRestoreButton="False" IsMaxRestoreButtonEnabled="False" IgnoreTaskbarOnMaximize="True" ResizeMode="NoResize">
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock x:Name="TitleText"

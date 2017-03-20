@@ -214,7 +214,8 @@ namespace APIHub
 
         private void SettingsButton_Activated(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This Feature will be Addded in V1.2.0 (Preview Build #3)");
+            SettingsWindow settings = new SettingsWindow();
+            settings.ShowDialog();
         }
 
         /*private void InstallFont()
